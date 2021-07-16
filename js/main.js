@@ -21,8 +21,6 @@ window.addEventListener('load', function () {
         var weather = JSON.parse(localStorage.getItem('weather'));
         var cityNameVar = localStorage.getItem('cityNameVar');
     
-        
-
         const searchbox = document.querySelector('.city');
         searchbox.addEventListener('keypress',setQuery);
     
@@ -33,8 +31,7 @@ window.addEventListener('load', function () {
             displayResults(weather);
         }
         else{
-            searchbox.value = 'Aagdir';
-            getCoord(searchbox.value);
+            getCoord('Agadir');
         }
     
         function setQuery(evt){
@@ -58,9 +55,18 @@ window.addEventListener('load', function () {
             }).then(displayResults);
             
             localStorage.setItem('geo', JSON.stringify(geo));
-            let cityName = document.querySelector('.city-name span');
-            cityName.innerText = `${searchbox.value.charAt(0).toUpperCase() + searchbox.value.slice(1)}, ${geo.results[0].components.country}`;
-            var cityNameVar = `${searchbox.value.charAt(0).toUpperCase() + searchbox.value.slice(1)}, ${geo.results[0].components.country}`;
+            
+            if (searchbox.value == ''){
+                let cityName = document.querySelector('.city-name span');
+                cityName.innerText = `Agadir, ${geo.results[0].components.country}`;
+                var cityNameVar = `Agadir, ${geo.results[0].components.country}`;
+            }
+            else{
+                let cityName = document.querySelector('.city-name span');
+                cityName.innerText = `${searchbox.value.charAt(0).toUpperCase() + searchbox.value.slice(1)}, ${geo.results[0].components.country}`;
+                var cityNameVar = `${searchbox.value.charAt(0).toUpperCase() + searchbox.value.slice(1)}, ${geo.results[0].components.country}`;
+            }
+
             localStorage.setItem('cityNameVar', cityNameVar);
         }
     
