@@ -39,9 +39,10 @@ window.addEventListener('load', function () {
                 return response.json();
             }).then((response)=>{
                 let cityName = document.querySelector('.city-name span');
-                cityName.innerText = `${response.results[0].formatted}`;
+                let cityNameVar = (response.results[0].components.town) ? `${response.results[0].components.town}, ${response.results[0].components.country}`: response.results[0].components.formatted;
+                cityName.innerText = `${cityNameVar}`;
                 getResults(response);
-                //console.log(response);
+                console.log(response);
             });  
         };
         
